@@ -168,8 +168,8 @@ find_qt_able_files("${PROJECT_SOURCE_DIR}/src/gui")
 find_qt_able_files("${PROJECT_SOURCE_DIR}/src/res")
 
 # Tell CMake to create the main executables
-add_executable(unit_tests src/code/main_test.cpp)
-add_executable(gaspar_app WIN32 src/code/main.cpp)
+add_executable(unit_tests src/code/main_test.cpp src/resources.qrc)
+add_executable(gaspar_app WIN32 src/code/main.cpp src/resources.qrc)
 
 # Add modules from Qt 5
 target_link_libraries(gaspar_app PUBLIC Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Widgets Qt5::Sql)
