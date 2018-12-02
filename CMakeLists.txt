@@ -144,7 +144,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 # Find the Qt Core libraries
-find_package(Qt5 REQUIRED COMPONENTS Core Quick Widgets Sql Test CONFIG)
+find_package(Qt5 REQUIRED COMPONENTS Core Quick Widgets Sql Test QuickControls2 CONFIG)
 
 # Common prefix
 set(THIRDPARTY_FOLDER "${PROJECT_SOURCE_DIR}/src/3rdparty")
@@ -172,8 +172,8 @@ add_executable(unit_tests src/code/main_test.cpp)
 add_executable(gaspar_app WIN32 src/code/main.cpp)
 
 # Add modules from Qt 5
-target_link_libraries(gaspar_app PUBLIC Qt5::Core Qt5::Quick Qt5::Widgets Qt5::Sql)
-target_link_libraries(unit_tests PUBLIC Qt5::Core Qt5::Quick Qt5::Widgets Qt5::Sql Qt5::Test)
+target_link_libraries(gaspar_app PUBLIC Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Widgets Qt5::Sql)
+target_link_libraries(unit_tests PUBLIC Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Widgets Qt5::Sql Qt5::Test)
 
 # Base include path
 list(APPEND includepath ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/src/code)
