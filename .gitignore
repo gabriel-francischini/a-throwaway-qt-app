@@ -1,0 +1,87 @@
+# Ignora as pastas de montagem/compilação
+build*
+debug*
+release*
+temp*
+
+# Ignora configurações da máquina
+*.pro.user
+
+# Ignora arquivos gerados pelo qmake
+ui_*.h
+qrc_*.cpp
+moc_*.cpp
+
+# Ignora a documentação gerada
+docs/*
+
+# Ignora o Makefile autogerado
+Makefile*
+
+# Ignora executáveis e textos/logs
+*.exe
+*.txt
+*.log
+*.stdb
+
+# -------------
+# No global tags files
+GTAGS
+GPATH
+GRTAGS
+
+# No autonumbered files (more than 2 autonumbered digits)
+*[0-9][0-9]
+
+# No linux/emacs strange files (dot initiated filename, # or ~ temp files, etc.)
+.*
+*.*#
+*.*~
+
+# Do not ignore certain dot-initiated filenames
+!.git*
+
+# Ignore Makefiles - we will use CMake/QMake for building
+Makefile
+!CMakeLists.txt
+
+# Temporary .s and .ii files
+*.ii
+*.i
+*.s
+
+# ------------
+# Template of C++ gitignore: github.com/github/gitignore
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
