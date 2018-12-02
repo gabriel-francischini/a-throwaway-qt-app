@@ -15,7 +15,6 @@
 #define FRAMELESSWINDOW_H
 
 #include "ui_framelesswindow.h"
-#include "log/log.hpp"
 
 class FramelessWindow: public QWidget, private Ui::FramelessWindow
 {
@@ -23,9 +22,6 @@ class FramelessWindow: public QWidget, private Ui::FramelessWindow
 
 public:
   explicit FramelessWindow(QWidget *parent = 0);
-#ifdef __LOG_HPP
-  ~FramelessWindow(){LOG << DEALLOC << SECT("FramelessWindow", "DEALLOC") << LOGOUT;};
-#endif
   void setContent(QWidget *w);
 
 private:
