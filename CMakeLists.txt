@@ -89,7 +89,7 @@ elseif(toolchain MATCHES "desktop")
   if(UNIX)
     set(qt_arch "gcc_64")
   elseif(WIN32 AND MSVC)
-    set(qt_arch "msvc2015")
+    set(qt_arch "msvc2017")
   elseif(WIN32) # Assumes MinGW
     set(qt_arch "mingw49_32")
   endif()
