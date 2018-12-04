@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(gaspar_app LANGUAGES CXX)
+project(app LANGUAGES CXX)
 
 # ===========================
 # ---   Meta Debugging    ---
@@ -169,10 +169,10 @@ find_qt_able_files("${PROJECT_SOURCE_DIR}/src/res")
 
 # Tell CMake to create the main executables
 add_executable(unit_tests src/code/main_test.cpp src/resources.qrc)
-add_executable(gaspar_app WIN32 src/code/main.cpp src/resources.qrc)
+add_executable(app WIN32 src/code/main.cpp src/resources.qrc)
 
 # Add modules from Qt 5
-target_link_libraries(gaspar_app PUBLIC Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Widgets Qt5::Sql)
+target_link_libraries(app PUBLIC Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Widgets Qt5::Sql)
 target_link_libraries(unit_tests PUBLIC Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Widgets Qt5::Sql Qt5::Test)
 
 # Base include path
@@ -227,7 +227,7 @@ endforeach()
 # Add files to executables
 set(dependencies__no_test ${dependencies})
 list(FILTER dependencies__no_test EXCLUDE REGEX "test")
-target_sources(gaspar_app PUBLIC
+target_sources(app PUBLIC
   ${dependencies__no_test}
   )
 
@@ -236,7 +236,7 @@ target_sources(unit_tests PUBLIC
   ${dependencies}
   )
 
-target_include_directories(gaspar_app PUBLIC ${includepath})
+target_include_directories(app PUBLIC ${includepath})
 target_include_directories(unit_tests PUBLIC ${includepath})
 
 
@@ -349,7 +349,7 @@ endif()
 if(MSVC)
   if(CMAKE_BUILD_TYPE MATCHES Rel)
     #list(APPEND compiler_options "/MT")
-    #target_link_libraries(gaspar_app STATIC mincore_downlevel.lib)
+    #target_link_libraries(app STATIC mincore_downlevel.lib)
     #target_link_libraries(unit_tests STATIC mincore_downlevel.lib)
   elseif(CMAKE_BUILD_TYPE MATCHES Deb)
     #list(APPEND compiler_options "/MTd")
@@ -361,5 +361,5 @@ message(STATUS "Extra linker options:      ${linker_options}")
 
 target_compile_options(unit_tests PRIVATE ${compiler_options})
 target_link_libraries(unit_tests PRIVATE ${linker_options})
-target_compile_options(gaspar_app PRIVATE ${compiler_options})
-target_link_libraries(gaspar_app PRIVATE ${linker_options})
+target_compile_options(app PRIVATE ${compiler_options})
+target_link_libraries(app PRIVATE ${linker_options})
