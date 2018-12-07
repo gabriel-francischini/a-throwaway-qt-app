@@ -1,101 +1,232 @@
-import QtQuick 2.7
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
+//import QtQuick 2.9
+import QtQuick 2.11
+import QtQuick.Layouts 1.11
+import QtQuick.Dialogs 1.3
+//import QtQuick.Dialogs 1.11
+//import QtQuick.Controls 1.5
+//import QtQuick.Controls 2.4
 import QtQuick.Controls 2.4
+//import QtQuick.Controls.Material 2.4
+//import QtQuick.Controls.Universal 2.4
+//import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Material 2.4
 import QtQuick.Controls.Universal 2.4
-//import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls.Styles 1.4
 
-ApplicationWindow {
-    Material.theme: Material.Dark
-    Universal.theme: Universal.Dark
+ ApplicationWindow {
+     Material.theme: Material.Dark
+     //Universal.theme: Universal.Dark
 
-    id: window
-    visible: true
-    width: 328
-    height: 716
+     id: window
+     visible: true
+     width: 370
+     height: 598
 
-    //: Name of the initial screen
-    title: qsTr("Demonstração de Resultado")
+     //: Name of the initial screen
+     title: qsTr("App Modelo Organizacional")
 
-    Action {
-        id: copyAction
-        text: "&Copy"
-        shortcut: StandardKey.Copy
-        enabled: (!!activeFocusItem && !!activeFocusItem["copy"])
-        onTriggered: activeFocusItem.copy()
-    }
+    Component.onCompleted: {console.log("window wh: ", width, height);}
+/*     /\* ColumnLayout { *\/ */
+/*     /\* spacing: 0 *\/ */
+/*     /\*     anchors.fill: parent *\/ */
 
-    Action {
-        id: cutAction
-        text: "Cu&t"
-        shortcut: StandardKey.Cut
-        enabled: (!!activeFocusItem && !!activeFocusItem["cut"])
-        onTriggered: activeFocusItem.cut()
-    }
+/*     /\*     TabBar { *\/ */
+/*     /\*         id: tabBar *\/ */
+/*     /\*         currentIndex: 0 *\/ */
+/*     /\*         Layout.fillWidth: true *\/ */
+/*     /\*         Layout.preferredHeight: 20 *\/ */
+/*     /\*         TabButton { *\/ */
+/*     /\*             id: entryButton *\/ */
+/*     /\*             text: qsTr("Entrada") *\/ */
+/*     /\*         } *\/ */
 
-    Action {
-        id: pasteAction
-        text: "&Paste"
-        shortcut: StandardKey.Paste
-        enabled: (!!activeFocusItem && !!activeFocusItem["paste"])
-        onTriggered: activeFocusItem.paste()
-    }
+/*     /\*         TabButton { *\/ */
+/*     /\*             id: reportBurron *\/ */
+/*     /\*             text: qsTr("Relatório") *\/ */
+/*     /\*         } *\/ */
+/*     /\*     } *\/ */
 
-    menuBar: MenuBar {
-        Menu {
-            title: "Arquivo⊕⊖"
-            MenuItem {
-                text: "&Abrir"
-            }
+/*     /\*     ScrollView { *\/ */
+/*     /\*         id: scrollView *\/ */
+/*     /\*         Layout.fillHeight: true *\/ */
+/*     /\*         Layout.fillWidth: true *\/ */
+/*     /\*         Layout.preferredHeight: 80 *\/ */
+/*     /\*         ColumnLayout { *\/ */
+/*     /\*             id: columnLayout *\/ */
+/*     /\*             anchors.fill: parent *\/ */
+/*     /\*             //Layout.fillHeight: true *\/ */
+/*     /\*             //Layout.minimumWidth: parent.width *\/ */
+/*     /\*             //Layout.alignment: Qt.AlignHCenter | Qt.AlignTop *\/ */
 
-            MenuItem {
-                text: "&Salvar"
-            }
-        }
-        Menu {
-            title: "Demonstrar"
-            MenuItem {
-                text: "Resultado Mensal"
-            }
+/*     /\*             StackLayout { *\/ */
+/*     /\*                 currentIndex: tabBar.currentIndex *\/ */
+/*     /\*                 Layout.fillHeight: true *\/ */
+/*     /\*                 //Layout.maximumHeight: parent.width * 0.8 *\/ */
+/*     /\*                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop *\/ */
+/*     /\*                 anchors.fill: parent *\/ */
+/*     /\*                 ColumnLayout { *\/ */
+/*     /\*                 anchors.fill: parent *\/ */
+/*     /\*                     Layout.fillWidth: true *\/ */
+/*     /\*                     GroupBox { *\/ */
+/*     /\*                         Layout.preferredHeight: 100 *\/ */
+/*     /\*                         Layout.preferredWidth: 350 *\/ */
+/*     /\*                         title: qsTr("Receitas - R$5.490,10") *\/ */
+/*     /\*                         Layout.fillWidth: true *\/ */
+/*     /\*                         Label { *\/ */
+/*     /\*                         anchors.fill: parent *\/ */
+/*     /\*                             text: "Quantidade" *\/ */
+/*     /\*                         } *\/ */
+/*     /\*                     } *\/ */
+/*     /\*                 } *\/ */
 
-            MenuItem {
-                text: "&Resultado Anual"
-            }
-            MenuItem {
-                text: "Resultado de Período Específico"
-            }
-        }
-    }
+/*     /\*                 ColumnLayout { *\/ */
+/*     /\*                     Layout.fillWidth: true *\/ */
+/*     /\*                     GroupBox { *\/ */
+/*     /\*                         Layout.fillWidth: true *\/ */
+/*     /\*                         title: qsTr("Relatórios") *\/ */
+/*     /\*                     } *\/ */
+/*     /\*                 } *\/ */
+/*     /\*             } *\/ */
 
-    ScrollView {
-        id: scrollArea
+/*     /\*         } *\/ */
+/*     /\*     } *\/ */
+/*     /\* } *\/ */
+
+    ColumnLayout {
+        spacing: 0
         anchors.fill: parent
-        Layout.fillWidth: true
-        anchors {
-            leftMargin: window.width / 10
-            rightMargin: window.width / 10
-            topMargin: window.height / 20
-            bottomMargin: window.height / 20
+        Component.onCompleted: {console.log("columnlayout0 wh: ", width, height);}
+
+        Rectangle {
+            id: tabBar
+            //currentIndex: 0
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.preferredHeight: 20
+            color: "#3F51B5"
+            Component.onCompleted: {console.log("tabBar wh: ", width, height);}
         }
 
-        ColumnLayout {
-            id: centralLayout
-            Layout.alignment: Qt.AlignHCenter
+        ScrollView {
+            id: scrollView
+            Layout.fillHeight: true
             Layout.fillWidth: true
-            anchors.fill: parent
+            Layout.preferredHeight: 80
+            Component.onCompleted: {console.log("scrollView wh: ", width, height);}
+            contentItem: columnLayout
 
-            RowLayout {
-                //Calendar {}
-            }
+            ColumnLayout {
+                id: columnLayout
+                anchors.fill: parent
+                Component.onCompleted: {console.log("columnLayout (1) wh: ", width, height);}
+                StackLayout {
+                    currentIndex: 0
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    //Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                    Component.onCompleted: {console.log("stacklayout wh: ", width, height);}
+                    ColumnLayout {
+                        spacing: 0
+                        Layout.fillWidth: true
+                        Component.onCompleted: {console.log("columnlayout2 wh: ", width, height);}
+                        Rectangle {
+                            //Layout.preferredHeight: 50
+                            //Layout.fillHeight: true
+                            height: window.height
+                            Layout.fillWidth: true
+                            //color: "#FF5252"
+                            gradient: Gradient {
+                                GradientStop { position: 0.0; color: "#FF5252" }
+                                GradientStop { position: 1.0; color: "lightsteelblue" }
+                            }
+                            //title: qsTr("Receitas - R$5.490,10")
+                            Component.onCompleted: {console.log("rectangleReceitas wh: ", width, height);}
+                        }
+                    }
 
-            GroupBox {
-                title: qsTr("Receitas - R$5.490,10")
-
-                Label {
-                    text: "Quantidade"
+                    ColumnLayout {
+                        spacing: 0
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Rectangle {
+                            Layout.preferredHeight: 50
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            color: "#AA00FF"
+                            //title: qsTr("Relatórios")
+                        }
+                    }
                 }
+
             }
         }
     }
 }
+
+
+
+/* ApplicationWindow { */
+/*     x: 500 */
+/*     y: 100 */
+/*     width: 250 */
+/*     height: 150 */
+/*     visible: true */
+
+/*     ColumnLayout { */
+/*         anchors.fill: parent */
+/*         spacing: 5 */
+/*         RowLayout { */
+/*             spacing: 5 */
+/*             Layout.preferredHeight: 40 */
+/*             Layout.fillHeight: true */
+/*             Rectangle { */
+/*                 Layout.fillHeight: true */
+/*                 Layout.fillWidth: true */
+/*                 color: "red" */
+/*             } */
+/*         } */
+/*         RowLayout { */
+/*             spacing: 5 */
+/*             Layout.preferredHeight: 20 */
+/*             Layout.fillHeight: true */
+/*             Rectangle { */
+/*                 Layout.fillHeight: true */
+/*                 Layout.preferredWidth: 20 */
+/*                 Layout.fillWidth: true */
+/*                 color: "darkGreen" */
+/*             } */
+/*             Rectangle { */
+/*                 Layout.fillHeight: true */
+/*                 Layout.preferredWidth: 80 */
+/*                 Layout.fillWidth: true */
+/*                 color: "lightGreen" */
+/*             } */
+/*         } */
+/*         RowLayout { */
+/*             spacing: 5 */
+/*             Layout.preferredHeight: 40 */
+/*             Layout.fillHeight: true */
+/*             Text { */
+/*                 Layout.fillHeight: true */
+/*                 Layout.preferredWidth: 40 */
+/*                 Layout.fillWidth: true */
+/*                 color: "darkBlue" */
+/*                 text: "hello world!" */
+/*                 horizontalAlignment: Text.AlignHCenter */
+/*                 verticalAlignment: Text.AlignVCenter */
+/*             } */
+/*             Rectangle { */
+/*                 Layout.fillHeight: true */
+/*                 Layout.preferredWidth: 20 */
+/*                 Layout.fillWidth: true */
+/*                 color: "blue" */
+/*             } */
+/*             Rectangle { */
+/*                 Layout.fillHeight: true */
+/*                 Layout.preferredWidth: 40 */
+/*                 Layout.fillWidth: true */
+/*                 color: "lightBlue" */
+/*             } */
+/*         } */
+/*     } */
+/* } */
