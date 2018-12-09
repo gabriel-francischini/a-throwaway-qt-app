@@ -18,6 +18,7 @@
 #include <QQuickStyle>
 
 #include <string>
+#include <QFile>
 #include "extra_fonts.hpp"
 
 
@@ -39,15 +40,25 @@ int main(int argc, char *argv[])
 
     //janela_principal.show();
 
+    // Since we'll use Quick Controls 2, opt-in for High-DPI devices
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
+    bool fontsLoadedOk = true;
     // Registers the extra embedded fonts
-    for(const std::string& fontname : extra_fonts){
-        std::string font_folder = "qrc:///fonts/";
-        QString font_url = (font_folder + fontname).c_str();
-        qDebug() << "Loading font '" << font_url << "'";
-        QFontDatabase::addApplicationFont(font_url);
+    for(const std::string& fontName : extra_fonts){
+        const std::string fontFolder = ":/fonts/";
+        const QString fontPath = (fontFolder + fontName).c_str();
+        //qDebug() << "Loading font '" << fontPath << "'";
+        const auto isOk = QFontDatabase::addApplicationFont(fontPath);
+        //qDebug() << "    ^--> QRC file exists? " << QFile(fontPath).exists();
+        //qDebug() << "    ^--> Result is: " << isOk;
+        fontsLoadedOk = fontsLoadedOk && (isOk != -1);
     }
 
+    if(fontsLoadedOk){
+        QFont font("Roboto");
+        QApplication::setFont(font);
+    }
 
     QQuickStyle::setStyle("Material");
     QQmlApplicationEngine engine(QUrl("qrc:///gui/mainwindow.qml"));
