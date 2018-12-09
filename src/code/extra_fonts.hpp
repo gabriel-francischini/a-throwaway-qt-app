@@ -4,7 +4,7 @@
 #include <string>
 
 const std::string extra_fonts[] = {
-    "NotoColorEmoji.ttf",
+    "EmojiOneColor.otf",
     "Roboto-BlackItalic.ttf",
     "Roboto-Black.ttf",
     "Roboto-BoldItalic.ttf",

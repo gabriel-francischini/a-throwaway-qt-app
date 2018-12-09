@@ -18,6 +18,8 @@ ApplicationWindow {
     Material.theme: Material.Dark
     //Universal.theme: Universal.Dark
 
+    FontLoader { id: emojiOneColor; source: "qrc:/fonts/EmojiOneColor.otf" }
+
     id: window
     visible: true
 

@@ -1,6 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/fonts">
-    <file alias="NotoColorEmoji.ttf">fonts/NotoColorEmoji.ttf</file>
+    <file alias="EmojiOneColor.otf">fonts/EmojiOneColor.otf</file>
     <file alias="Roboto-BlackItalic.ttf">fonts/Roboto-BlackItalic.ttf</file>
     <file alias="Roboto-Black.ttf">fonts/Roboto-Black.ttf</file>
     <file alias="Roboto-BoldItalic.ttf">fonts/Roboto-BoldItalic.ttf</file>
