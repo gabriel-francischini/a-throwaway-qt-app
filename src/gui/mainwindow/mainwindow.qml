@@ -30,109 +30,152 @@ ApplicationWindow {
     height: Math.round(Screen.height * height_screen_proportion)
 
     //: Name of the initial screen
-    title: qsTr("App Modelo Organizacional")
+    title: qsTr("Modelo Organizacional")
 
     ColumnLayout {
         spacing: 0
         anchors.fill: parent
-        Component.onCompleted: {console.log("columnlayout0 wh: ", width, height);}
+        Component.onCompleted: {console.log("masterWindowLayout whxy: ", width, height, x, y);}
 
         TabBar {
             id: tabBar
             currentIndex: 0
             Layout.fillWidth: true
-            Layout.fillHeight: true
+            //Layout.fillHeight: true
             //Layout.preferredHeight: window.height * 0.1
             //Layout.minimumHeight: window.height * 0.1
-            Component.onCompleted: {console.log("tabBar wh: ", width, height);}
+            Component.onCompleted: {console.log("tabBar whxy: ", width, height, x, y);}
 
             TabButton {
                 id: entryButton
                 text: qsTr("Entrada")
-                Component.onCompleted: {console.log("entryButton wh: ", width, height);}
+                Component.onCompleted: {console.log("entryButton whxy: ", width, height, x, y);}
             }
 
             TabButton {
                 id: reportBurron
                 text: qsTr("Relatório")
-                Component.onCompleted: {console.log("reportButton wh: ", width, height);}
+                Component.onCompleted: {console.log("reportButton whxy: ", width, height, x, y);}
             }
         }
 
-        ScrollView {
-            id: scrollView
-            Layout.fillHeight: true
+        StackLayout {
+            id: tabContentStacker
+            currentIndex: tabBar.currentIndex
+            //Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.preferredHeight: window.height * 0.9
-            Component.onCompleted: {console.log("scrollView wh: ", width, height);}
-            contentItem: columnLayout
-
+            Layout.topMargin: window.height * 0.05
+            Layout.bottomMargin: window.height * 0.05
+            Layout.leftMargin: window.width * 0.05
+            Layout.rightMargin: window.width * 0.05
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Component.onCompleted: {console.log("stacklayout whxy: ", width, height, x, y);}
             ColumnLayout {
-                id: columnLayout
-                width: scrollView.width
-                //height: scrollView.height
-                Component.onCompleted: {console.log("columnLayout (1) wh: ", width, height);}
-                StackLayout {
-                    id: tabContentStacker
-                    currentIndex: tabBar.currentIndex
-                    Layout.fillHeight: true
+                id: entryMasterLayout
+                spacing: scrollView.height * 0.05
+                Layout.fillWidth: true
+                Component.onCompleted: {console.log("insideStackColumnLayout whxy: ", width, height, x, y);}
+                GroupBox {
+                    id: entryGroupBox
+                    Component.onCompleted: {console.log("entryGroupBox whxy: ", width, height, x, y);}
                     Layout.fillWidth: true
-                    Layout.topMargin: window.height * 0.05
-                    Layout.bottomMargin: window.height * 0.05
-                    Layout.leftMargin: window.width * 0.05
-                    Layout.rightMargin: window.width * 0.05
-                    //Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                    Component.onCompleted: {console.log("stacklayout wh: ", width, height);}
-                    ColumnLayout {
-                        id: entryMasterLayout
-                        spacing: 0
+                    title: qsTr("Adicione uma nova movimentação")
+                    //font.bold: true
+
+                    contentItem: gBoxLayout
+
+                    GridLayout {
+                        columns: 2
+                        id: gBoxLayout
+                        //anchors.fill: entryGroupBox
                         Layout.fillWidth: true
-                        Component.onCompleted: {console.log("columnlayout2 wh: ", width, height);}
-                        GroupBox {
-                            id: entryGroupBox
-                            Component.onCompleted: {console.log("entryGroupBox wh: ", width, height);}
-                            Layout.fillWidth: false
-                            title: qsTr("Adicionar movimentação")
-                            contentItem: gBoxLayout
-
-                            ColumnLayout {
-                                spacing: 10
-                                id: gBoxLayout
-
-                                Label {
-                                    text: "Quantidade"
-                                }
-                                Rectangle {
-                                    height: window.height * 2
-                                    //Layout.fillWidth: true
-                                    width: window.width * 2
-                                    gradient: Gradient {
-                                        GradientStop { position: 0.0; color: "#FF5252" }
-                                        GradientStop { position: 1.0; color: "lightsteelblue" }
-                                    }
-                                    Component.onCompleted: {console.log("rectangleReceitas wh: ", width, height);}
-                                }
-                            }
-                        }
-                    }
-
-                    ColumnLayout {
-                        id: reportMasterLayout
-                        spacing: 0
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Rectangle {
-                            Layout.preferredHeight: 50
+                        Component.onCompleted: {console.log("gBoxLayout whxy: ", width, height, x, y);}
+                        columnSpacing: window.width * 0.05
+                        Label {
+                            id: categoryLabel
                             Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            color: "#AA00FF"
-                            opacity: 0
-                            //title: qsTr("Relatórios")
+                            text: qsTr("Categoria")
+                            Component.onCompleted: {console.log("categoryLabel whxy: ", width, height, x, y);}
+                        }
+
+                        ComboBox {
+                            id: categoryField
+                            Layout.fillWidth: true
+                            Component.onCompleted: {console.log("categoryField whxy: ", width, height, x, y);}
+                            model: [
+                                qsTr("Modo um"),
+                                qsTr("Modo dois três quatro")
+                            ]
+                        }
+
+                        Label {
+                            id: dateLabel
+                            Layout.fillWidth: true
+                            Component.onCompleted: {console.log("dateLabel whxy: ", width, height, x, y);}
+                            text: qsTr("Data")
+                        }
+                        TextField {
+                            id: dateField
+                            Layout.fillWidth: true
+                            Component.onCompleted: {console.log("dateField whxy: ", width, height, x, y);}
+                            placeholderText: qsTr("05/08/2018")
+
+                        }
+
+                        Label {
+                            id: descLabel
+                            Layout.fillWidth: true
+                            Component.onCompleted: {console.log("descLabel whxy: ", width, height, x, y);}
+                            text: qsTr("Descrição")
+                        }
+
+                        ScrollView {
+                            id: scrollView
+                            Layout.fillHeight: false
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: window.height * 0.25
+                            Layout.preferredWidth: window.width * 0.10
+                            clip: true
+                            Component.onCompleted: {console.log("scrollView whxy: ", width, height, x, y);}
+                            contentItem: descField
+
+                            TextArea {
+                                id: descField
+                                //anchors.fill: parent
+                                //Layout.fillWidth: true
+                                Component.onCompleted: {console.log("descField whxy: ", width, height, x, y);}
+                                placeholderText: qsTr("Insira uma descrição")
+                            }
                         }
                     }
                 }
 
+                Button {
+                    id: submitButton
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: window.height * 0.1
+                    text: qsTr("Adicionar")
+                    Component.onCompleted: {console.log("submitButton whxy: ", width, height, x, y);}
+                }
+            }
+
+            ColumnLayout {
+                id: reportMasterLayout
+                spacing: 0
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Rectangle {
+                    Layout.preferredHeight: 50
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    color: "#AA00FF"
+                    opacity: 0
+                    //title: qsTr("Relatórios")
+                }
             }
         }
+
     }
 }
+
+
