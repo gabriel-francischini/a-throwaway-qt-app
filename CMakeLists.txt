@@ -243,6 +243,7 @@ target_include_directories(unit_tests PUBLIC ${includepath})
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif(NOT CMAKE_BUILD_TYPE)
+message(STATUS "Build type (after):   ${CMAKE_BUILD_TYPE}")
 
 ## Dependencies by build type/compiler
 set(compiler_options "")
