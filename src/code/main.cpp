@@ -12,15 +12,18 @@
 #include <QDebug>
 #include <QQuickView>
 #include <QUrl>
+#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
+
+#include <string>
+#include "extra_fonts.hpp"
 
 
 // Todo código em C/C++ é iniciado pela função main
 int main(int argc, char *argv[])
 {
-
     // Definimos uma QApplication (necessária para
     // iniciar o Qt e suas ferramentas)
     QApplication a(argc, argv);
@@ -36,8 +39,17 @@ int main(int argc, char *argv[])
 
     //janela_principal.show();
 
-    QQuickStyle::setStyle("Material");
 
+    // Registers the extra embedded fonts
+    for(const std::string& fontname : extra_fonts){
+        std::string font_folder = "qrc:///fonts/";
+        QString font_url = (font_folder + fontname).c_str();
+        qDebug() << "Loading font '" << font_url << "'";
+        QFontDatabase::addApplicationFont(font_url);
+    }
+
+
+    QQuickStyle::setStyle("Material");
     QQmlApplicationEngine engine(QUrl("qrc:///gui/mainwindow.qml"));
 
     // Entramos no loop de execução
