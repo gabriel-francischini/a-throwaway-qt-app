@@ -1,5 +1,6 @@
 //import QtQuick 2.9
 import QtQuick 2.11
+import QtQuick.Window 2.3
 import QtQuick.Layouts 1.11
 import QtQuick.Dialogs 1.3
 //import QtQuick.Dialogs 1.11
@@ -13,20 +14,21 @@ import QtQuick.Controls.Material 2.4
 import QtQuick.Controls.Universal 2.4
 import QtQuick.Controls.Styles 1.4
 
- ApplicationWindow {
-     Material.theme: Material.Dark
-     //Universal.theme: Universal.Dark
+ApplicationWindow {
+    Material.theme: Material.Dark
+    //Universal.theme: Universal.Dark
 
-     id: window
-     visible: true
-     width: 370
-     height: 598
+    id: window
+    visible: true
 
-     //: Name of the initial screen
-     title: qsTr("App Modelo Organizacional")
+    property real lesser_phi: 0.61803398875 // 1/phi, i.e. phi in %
+    property real height_screen_proportion: 0.6 // 60%
 
-    Component.onCompleted: {console.log("window wh: ", width, height);}
+    width: Math.round(Screen.height * height_screen_proportion * lesser_phi)
+    height: Math.round(Screen.height * height_screen_proportion)
 
+    //: Name of the initial screen
+    title: qsTr("App Modelo Organizacional")
 
     ColumnLayout {
         spacing: 0
