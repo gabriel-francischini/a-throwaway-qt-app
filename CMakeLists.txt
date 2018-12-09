@@ -7,6 +7,7 @@ project(app LANGUAGES CXX)
 # For verbosity
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 #add_compile_options("--verbose -Wl,--verbose")
+#add_compile_options(-v -Wl,-v)
 #set(CMAKE_TOOLCHAIN_FILE "arm-gcc-toolchain.cmake")
 
 
