@@ -35,54 +35,87 @@ ApplicationWindow {
         anchors.fill: parent
         Component.onCompleted: {console.log("columnlayout0 wh: ", width, height);}
 
-        Rectangle {
+        TabBar {
             id: tabBar
-            //currentIndex: 0
+            currentIndex: 0
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.preferredHeight: 20
-            color: "#3F51B5"
+            //Layout.preferredHeight: window.height * 0.1
+            //Layout.minimumHeight: window.height * 0.1
             Component.onCompleted: {console.log("tabBar wh: ", width, height);}
+
+            TabButton {
+                id: entryButton
+                text: qsTr("Entrada")
+                Component.onCompleted: {console.log("entryButton wh: ", width, height);}
+            }
+
+            TabButton {
+                id: reportBurron
+                text: qsTr("Relatório")
+                Component.onCompleted: {console.log("reportButton wh: ", width, height);}
+            }
         }
 
         ScrollView {
             id: scrollView
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.preferredHeight: 80
+            Layout.preferredHeight: window.height * 0.9
             Component.onCompleted: {console.log("scrollView wh: ", width, height);}
             contentItem: columnLayout
 
             ColumnLayout {
                 id: columnLayout
-                anchors.fill: parent
+                width: scrollView.width
+                //height: scrollView.height
                 Component.onCompleted: {console.log("columnLayout (1) wh: ", width, height);}
                 StackLayout {
-                    currentIndex: 0
+                    id: tabContentStacker
+                    currentIndex: tabBar.currentIndex
                     Layout.fillHeight: true
                     Layout.fillWidth: true
+                    Layout.topMargin: window.height * 0.05
+                    Layout.bottomMargin: window.height * 0.05
+                    Layout.leftMargin: window.width * 0.05
+                    Layout.rightMargin: window.width * 0.05
                     //Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                     Component.onCompleted: {console.log("stacklayout wh: ", width, height);}
                     ColumnLayout {
+                        id: entryMasterLayout
                         spacing: 0
                         Layout.fillWidth: true
                         Component.onCompleted: {console.log("columnlayout2 wh: ", width, height);}
-                        Rectangle {
-                            //Layout.preferredHeight: 50
-                            //Layout.fillHeight: true
-                            height: window.height
-                            Layout.fillWidth: true
-                            //color: "#FF5252"
-                            gradient: Gradient {
-                                GradientStop { position: 0.0; color: "#FF5252" }
-                                GradientStop { position: 1.0; color: "lightsteelblue" }
+                        GroupBox {
+                            id: entryGroupBox
+                            Component.onCompleted: {console.log("entryGroupBox wh: ", width, height);}
+                            Layout.fillWidth: false
+                            title: qsTr("Adicionar movimentação")
+                            contentItem: gBoxLayout
+
+                            ColumnLayout {
+                                spacing: 10
+                                id: gBoxLayout
+
+                                Label {
+                                    text: "Quantidade"
+                                }
+                                Rectangle {
+                                    height: window.height * 2
+                                    //Layout.fillWidth: true
+                                    width: window.width * 2
+                                    gradient: Gradient {
+                                        GradientStop { position: 0.0; color: "#FF5252" }
+                                        GradientStop { position: 1.0; color: "lightsteelblue" }
+                                    }
+                                    Component.onCompleted: {console.log("rectangleReceitas wh: ", width, height);}
+                                }
                             }
-                            //title: qsTr("Receitas - R$5.490,10")
-                            Component.onCompleted: {console.log("rectangleReceitas wh: ", width, height);}
                         }
                     }
 
                     ColumnLayout {
+                        id: reportMasterLayout
                         spacing: 0
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -91,6 +124,7 @@ ApplicationWindow {
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                             color: "#AA00FF"
+                            opacity: 0
                             //title: qsTr("Relatórios")
                         }
                     }
