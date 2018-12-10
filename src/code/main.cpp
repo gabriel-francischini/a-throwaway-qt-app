@@ -53,6 +53,10 @@ int main(int argc, char *argv[])
         //qDebug() << "    ^--> QRC file exists? " << QFile(fontPath).exists();
         //qDebug() << "    ^--> Result is: " << isOk;
         fontsLoadedOk = fontsLoadedOk && (isOk != -1);
+        if(isOk != -1)
+            for(const QString& family : QFontDatabase::applicationFontFamilies(isOk)){
+                //qDebug() << "    ^--> Found family: '" << family << "'";
+            }
     }
 
     if(fontsLoadedOk){
