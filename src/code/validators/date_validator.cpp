@@ -127,7 +127,7 @@ namespace Validators {
         const auto vecTransferStart = [](std::vector<char>& from,
                                          std::vector<char>& to,
                                          unsigned int N){
-            for(auto i=0; (i < N) && (from.size() > 0); i++){
+            for(unsigned int i=0; (i < N) && (from.size() > 0); i++){
                 to.push_back(from[0]);
                 from.erase(from.begin());
             }
