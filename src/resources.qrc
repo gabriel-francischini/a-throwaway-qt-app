@@ -2,4 +2,7 @@
 <qresource prefix="/gui">
     <file alias="mainwindow.qml">gui/mainwindow/mainwindow.qml</file>
 </qresource>
+<qresource prefix="/">
+  <file alias="qtquickcontrols2.conf">gui/qtquickcontrols2.conf</file>
+</qresource>
 </RCC>

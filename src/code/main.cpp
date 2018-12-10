@@ -62,12 +62,7 @@ int main(int argc, char *argv[])
             }
     }
 
-    if(fontsLoadedOk){
-        QFont font("Roboto");
-        QApplication::setFont(font);
-    }
 
-    QQuickStyle::setStyle("Material");
     QQmlApplicationEngine engine(QUrl("qrc:///gui/mainwindow.qml"));
 
     // Entramos no loop de execução
