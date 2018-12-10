@@ -15,6 +15,7 @@ import QtQuick.Controls.Universal 2.4
 import QtQuick.Controls.Styles 1.4
 
 import App.Validators 1.0
+import App.Database 1.0
 
 ApplicationWindow {
     Material.theme: Material.Dark
@@ -193,7 +194,7 @@ ApplicationWindow {
                             errorText = qsTr("Verifique se a data está no formato '%1'".arg(dateField.placeholderText));
                         }
                         if(!moneyField.acceptableInput){
-                            errorText = qsTr("Verifique se a quantidade está no formato '%1'".arg(moneyField.placeholderText));
+                            errorText = qsTr("Verifique se o valor está no formato '%1'".arg(moneyField.placeholderText));
                         }
 
                         if(errorText.length > 0){
@@ -209,8 +210,11 @@ ApplicationWindow {
                             //height: 100
                             x: (parent.width - width) / 2
                             y: (parent.height - height) / 2
+                            width: window.width * 0.9 * 0.95
                             Label {
                                 text: qsTr("' + errorText + '")
+                                wrapMode: Label.WordWrap
+                                anchors.fill: parent
                             }
                         }';
 
@@ -218,7 +222,40 @@ ApplicationWindow {
                             var newObject = Qt.createQmlObject(dynamicQml, window, "dynamicSnippet1");
                             newObject.open();
                         } else {
-                            console.log("Write to DB!");
+                            console.log("Write to DB! ", moneyField.text, date, categoryField.currentText);
+                            DatabaseAPI.addTransaction(moneyField.text, date, descField.text, categoryField.currentText);
+                            var sum_month_type = DatabaseAPI.sumByMonthAndType(date, categoryField.currentText);
+                            console.log(sum_month_type);
+                            var sum_month = DatabaseAPI.sumByMonth(date);
+                            console.log(sum_month);
+                            var dynamicQml2 = '
+                        import QtQuick 2.0
+                        import QtQuick.Controls 2.4
+                        Dialog {
+                            id: dynamicDialog
+                            title: qsTr("Dados salvos com sucesso")
+                            modal: true
+                            standardButtons: Dialog.Ok
+                            //width: 300
+                            //height: 100
+                            x: (parent.width - width) / 2
+                            y: (parent.height - height) / 2
+                            width: window.width * 0.9 * 0.95
+                            Label {
+                                font.pointSize: window.font.pointSize * 0.9
+                                text: qsTr("Acumulado desse mês da categoria '
+                                + categoryField.currentText.toLowerCase() + ': \n    R$'
+                                + parseFloat(Math.round(sum_month_type * 100) / 100).toFixed(2)
+                                + '\n\nAcumulado total desse mês: \n    R$'
+                                + parseFloat(Math.round(sum_month * 100) / 100).toFixed(2) + '")
+                                wrapMode: Label.WordWrap
+                                anchors.fill: parent
+                            }
+                        }';
+
+                            //console.log(dynamicQml);
+                            var newObject2 = Qt.createQmlObject(dynamicQml2, window, "dynamicSnippet2");
+                            newObject2.open();
                         }
                     }
                 }
