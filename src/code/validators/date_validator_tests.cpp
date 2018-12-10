@@ -68,4 +68,48 @@ TEST_CASE("date_validator_crazy_dates", "[validators date_validator]"){
     CHECK(isDateValid("12/03/2345") == false);
 }
 
+TEST_CASE("date_validator_repair_date_strings", "[validators date_validator]"){
+    const auto& correctedDate = [](const QString& x){
+        return Validators::DateValidator::correctedDate(x).toStdString();
+    };
+
+    // Exceptional empty string
+    CHECK(correctedDate("") == "");
+
+    // Typíng sequence
+    CHECK(correctedDate("0") == "0");
+    CHECK(correctedDate("02") == "02");
+    CHECK(correctedDate("020") == "02/0");
+    CHECK(correctedDate("02/03") == "02/03");
+    CHECK(correctedDate("02/031") == "02/03/1");
+    CHECK(correctedDate("02/03/19") == "02/03/19");
+    CHECK(correctedDate("02/03/194") == "02/03/194");
+    CHECK(correctedDate("02/03/1943") == "02/03/1943");
+
+    // Fairly common formats
+    CHECK(correctedDate("02") == "02");
+    CHECK(correctedDate("0203") == "02/03");
+    CHECK(correctedDate("02031946") == "02/03/1946");
+
+    // Hyphenated
+    CHECK(correctedDate("02-03-1946") == "02/03/1946");
+
+    // Obviously English
+    CHECK(correctedDate("02-14-1946") == "14/02/1946");
+
+    // Iso format
+    // CHECK(correctedDate("1946-03-02") == "02/03/1946");
+
+    // Some typos
+    // CHECK(correctedDate("0230") == "02/03"); // Ops, swapped 2 and 3
+    // CHECK(correctedDate("023,0") == "02/03"); // Slipped a comma into there
+
+
+    // A few crazy strings
+    CHECK(correctedDate("t0h1s1s1nsane n1n9 n1n9!") == "01/11/1919");
+    CHECK(correctedDate("02/03/19/46") == "02/03/1946");
+
+    // What should those be????
+    // CHECK(correctedDate("3141") == "31/04/1");
+    // CHECK(correctedDate("314159265") == "31/04/1926");
 }
