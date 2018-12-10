@@ -91,6 +91,126 @@ namespace Validators {
         return true;
     }
 
+    QString DateValidator::correctedDate(const QString& dateString){
+        if(dateString.isEmpty())
+            return "";
+
+        std::vector<char> onlyNumbers;
+
+        for(auto index = 0; index < dateString.length(); index++){
+            unsigned char ch = dateString.at(index).toLatin1();
+            // Is ch a number?
+            if(static_cast<unsigned char>(ch - 0x30) <= 0x09)
+                onlyNumbers.push_back(ch);
+        }
+
+        const auto vec2uint = [](const std::vector<char>& vec){
+            unsigned int currentValue = 0;
+            for(const unsigned char& ch : vec){
+                unsigned int maybeNum = ch - 0x30;
+                if(maybeNum <= 0x09){
+                    currentValue *= 10;
+                    currentValue += maybeNum;
+                }
+            }
+            return currentValue;
+        };
+        const auto vec2qstr = [](const std::vector<char>& vec){
+            QString string = "";
+            for(char ch : vec){
+                string.append(ch);
+            }
+            return string;
+        };
+
+        const auto vecTransferStart = [](std::vector<char>& from,
+                                         std::vector<char>& to,
+                                         unsigned int N){
+            for(auto i=0; (i < N) && (from.size() > 0); i++){
+                to.push_back(from[0]);
+                from.erase(from.begin());
+            }
+        };
+
+        std::vector<char> dayStr;
+        std::vector<char> monthStr;
+        std::vector<char> yearStr;
+
+        vecTransferStart(onlyNumbers, dayStr, 2);
+        vecTransferStart(onlyNumbers, monthStr, 2);
+        vecTransferStart(onlyNumbers, yearStr, 4);
+
+        // qDebug() << vec2qstr(dayStr)
+        //          << vec2qstr(monthStr)
+        //          << vec2qstr(yearStr);
+
+
+        if(onlyNumbers.size() < 8){
+            // Good start
+            if(isDayValid(vec2uint(dayStr))){
+                QString building = vec2qstr(dayStr);
+
+                // So far things are good
+                if(isMonthValid(vec2uint(monthStr))){
+                    building += "/" + vec2qstr(monthStr);
+
+                    // Perfect
+                    if(isYearValid(vec2uint(yearStr))){
+                        return building + "/" + vec2qstr(yearStr);
+
+                        // Year may not be complete
+                    } else if((yearStr.size() <= 4) && (!yearStr.empty())){
+                        return building + "/" + vec2qstr(yearStr);
+
+                        // Year may not be there
+                    } else if(yearStr.empty()) {
+                        return building;
+
+                        // Force the recipe as max as possible: (19|20)[0-9]{2}
+                    } else if (yearStr.size() >= 4){
+                        while((yearStr[0] != '1') || (yearStr[0] != '2')){
+                            yearStr.erase(yearStr.begin());
+                        }
+                        while(((yearStr[0] == '1')
+                               ? (yearStr[1] == '9')
+                               : (yearStr[1] == '0'))){
+                            yearStr.erase(yearStr.begin());
+                        }
+                        while(yearStr.size() > 4)
+                            yearStr.pop_back();
+
+                        return building + "/" + vec2qstr(yearStr);
+
+                        // Uh-oh, total bogus year
+                    } else {
+                    }
+
+                    // Empty month
+                } else if(monthStr.empty()){
+                    return building;
+
+                    // String still being typed...
+                } else if(yearStr.empty()){
+                    return building + "/" + vec2qstr(monthStr);
+
+                    // Maybe month and day are misplaced
+                } else if(isDayValid(vec2uint(monthStr))
+                          && isMonthValid(vec2uint(dayStr))){
+                    QString corrected = vec2qstr(monthStr) + "/"
+                        + vec2qstr(dayStr) + "/" + vec2qstr(yearStr);
+
+                    // Do more one pass to guarantee that this is right
+                    return correctedDate(corrected);
+                }
+            }
+        } else if(onlyNumbers.size() == 8){
+        } else {
+        }
+
+        // qDebug() << "Didn't know what to do with the value.";
+        return dateString;
+    }
+
     void registerDateValidator(){
         qmlRegisterSingletonType<DateValidator>
             ("App.Validators", 1, 0, "DateValidator",
