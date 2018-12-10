@@ -21,7 +21,7 @@
 #include <QFile>
 #include "extra_fonts.hpp"
 #include "validators/validators.hpp"
-
+#include "database/database.hpp"
 
 // Todo código em C/C++ é iniciado pela função main
 int main(int argc, char *argv[])
@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     Validators::registerValidators();
+    Database::registerDatabase();
 
     bool fontsLoadedOk = true;
     // Registers the extra embedded fonts
