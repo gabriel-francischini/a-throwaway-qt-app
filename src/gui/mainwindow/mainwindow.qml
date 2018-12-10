@@ -103,8 +103,13 @@ ApplicationWindow {
                             Layout.fillWidth: true
                             Component.onCompleted: {console.log("categoryField whxy: ", width, height, x, y);}
                             model: [
-                                qsTr("Modo um"),
-                                qsTr("Modo dois três quatro")
+                                qsTr("Administração"),
+                                qsTr("Marketing"),
+                                qsTr("Vendas"),
+                                qsTr("Recursos Humanos"),
+                                qsTr("Despesas Financeiras"),
+                                qsTr("Materiais"),
+                                qsTr("Outros")
                             ]
                         }
 
