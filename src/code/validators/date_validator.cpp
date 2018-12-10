@@ -8,6 +8,19 @@
 #include <QDebug>
 
 namespace Validators {
+    bool DateValidator::isDayValid(const unsigned int& day){
+        return (01 <= day) && (day <= 31);
+    }
+
+    bool DateValidator::isMonthValid(const unsigned int& month){
+        return (01 <= month) && (month <= 12);
+    }
+
+    bool DateValidator::isYearValid(const unsigned int& year){
+        return (1900 <= year) && (year <= 2099);
+    }
+
+
     bool DateValidator::isDateValid(const QString& dateString){
         // We don't store the null termination, \0
         // see: https://stackoverflow.com/questions/1392200
@@ -50,7 +63,7 @@ namespace Validators {
             }
 
             // Uh-oh, this probably isn't a number
-            if(currentValue > 9999) // Max year is 9999
+            if(!(isYearValid(currentValue) || isDayValid(currentValue)))
                 // Be sure that it will be detected as a bad number
                 currentValue = 0xF << (sizeof(unsigned int) * 4);
 
@@ -59,23 +72,22 @@ namespace Validators {
 
         unsigned int day = numberFieldAt(0, dateSeparatorIndexes[0]);
 
-        if(!((01 <= day) && (day <= 31)))
-            return false; // Day less than zero or bigger than 31
+        if(!DateValidator::isDayValid(day))
+            return false;
 
         // The "+ 1" is to skip the date separator and start right after it
         unsigned int month = numberFieldAt(dateSeparatorIndexes[0] + 1,
                                            dateSeparatorIndexes[1]);
 
-        if(!((01 <= month) && (month <= 12)))
-            return false; // Month less than zero or bigger than 12
+        if(!DateValidator::isMonthValid(month))
+            return false;
 
         // The "+ 1" is to skip the date separator and start right after it
         unsigned int year = numberFieldAt(dateSeparatorIndexes[1] + 1, dateLength);
 
-        if(!((1900 <= year) && (year <= 2099)))
-            return false; // Year less than 0 or bigger than 2100
+        if(!DateValidator::isYearValid(year))
+            return false;
 
-        qDebug() << "dateString is: '" << dateString << "'";
         return true;
     }
 

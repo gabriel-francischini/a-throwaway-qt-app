@@ -13,6 +13,11 @@ namespace Validators {
             : QObject(parent) {}
 
         Q_INVOKABLE static bool isDateValid(const QString& dateString);
+
+        private:
+        static bool isDayValid(const unsigned int& day);
+        static bool isMonthValid(const unsigned int& month);
+        static bool isYearValid(const unsigned int& year);
     };
 
     void registerDateValidator();
