@@ -116,6 +116,21 @@ ApplicationWindow {
                         }
 
                         Label {
+                            id: moneyLabel
+                            Layout.fillWidth: true
+                            text: qsTr("Valor:")
+                        }
+
+                        TextField {
+                            id: moneyField
+                            Layout.fillWidth: true
+                            placeholderText: qsTr("R$1.234,567")
+                            validator: RegExpValidator {
+                                regExp: /^R\$[0-9]{1,3}(\.[0-9]{3})*\,[0-9]{2,}$/
+                            }
+                        }
+
+                        Label {
                             id: dateLabel
                             Layout.fillWidth: true
                             Component.onCompleted: {console.log("dateLabel whxy: ", width, height, x, y);}
