@@ -2,7 +2,7 @@
 import QtQuick 2.11
 import QtQuick.Window 2.3
 import QtQuick.Layouts 1.11
-import QtQuick.Dialogs 1.3
+//import QtQuick.Dialogs 1.3
 //import QtQuick.Dialogs 1.11
 //import QtQuick.Controls 1.5
 //import QtQuick.Controls 2.4
@@ -176,13 +176,47 @@ ApplicationWindow {
                         }
                     }
                 }
-
                 Button {
                     id: submitButton
                     Layout.fillWidth: true
                     Layout.preferredHeight: window.height * 0.1
                     text: qsTr("Adicionar")
                     Component.onCompleted: {console.log("submitButton whxy: ", width, height, x, y);}
+                    onClicked: {
+                        var errorText = "";
+                        var date = dateField.text.length > 0 ? dateField.text : dateField.placeholderText;
+                        if(!DateValidator.isDateValid(date)){
+                            errorText = qsTr("Verifique se a data está no formato '%1'".arg(dateField.placeholderText));
+                        }
+                        if(!moneyField.acceptableInput){
+                            errorText = qsTr("Verifique se a quantidade está no formato '%1'".arg(moneyField.placeholderText));
+                        }
+
+                        if(errorText.length > 0){
+                            var dynamicQml = '
+                        import QtQuick 2.0
+                        import QtQuick.Controls 2.4
+                        Dialog {
+                            id: dynamicDialog
+                            title: qsTr("Verifique os dados")
+                            modal: true
+                            standardButtons: Dialog.Ok
+                            //width: 300
+                            //height: 100
+                            x: (parent.width - width) / 2
+                            y: (parent.height - height) / 2
+                            Label {
+                                text: qsTr("' + errorText + '")
+                            }
+                        }';
+
+                            //console.log(dynamicQml);
+                            var newObject = Qt.createQmlObject(dynamicQml, window, "dynamicSnippet1");
+                            newObject.open();
+                        } else {
+                            console.log("Write to DB!");
+                        }
+                    }
                 }
             }
 
