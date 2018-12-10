@@ -140,7 +140,8 @@ ApplicationWindow {
                             id: dateField
                             Layout.fillWidth: true
                             Component.onCompleted: {console.log("dateField whxy: ", width, height, x, y);}
-                            placeholderText: qsTr("05/08/2018")
+                            placeholderText: DateValidator.suitableDateHint()
+
                             onTextChanged: {
                                 if(DateValidator.isDateValid(text)){
                                     console.log("text is: '" + text + "'");

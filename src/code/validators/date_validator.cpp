@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <string>
 #include <QDebug>
+#include <QDate>
 
 namespace Validators {
     bool DateValidator::isDayValid(const unsigned int& day){
@@ -209,6 +210,10 @@ namespace Validators {
 
         // qDebug() << "Didn't know what to do with the value.";
         return dateString;
+    }
+
+    QString DateValidator::suitableDateHint(){
+        return QDate::currentDate().toString("dd/MM/yyyy");
     }
 
     void registerDateValidator(){

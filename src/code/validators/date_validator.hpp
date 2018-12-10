@@ -14,6 +14,7 @@ namespace Validators {
 
         Q_INVOKABLE static bool isDateValid(const QString& dateString);
         Q_INVOKABLE static QString correctedDate(const QString& dateString);
+        Q_INVOKABLE static QString suitableDateHint();
 
         private:
         static bool isDayValid(const unsigned int& day);
