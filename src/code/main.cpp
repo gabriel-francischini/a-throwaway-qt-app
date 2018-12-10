@@ -20,6 +20,7 @@
 #include <string>
 #include <QFile>
 #include "extra_fonts.hpp"
+#include "validators/validators.hpp"
 
 
 // Todo código em C/C++ é iniciado pela função main
@@ -42,6 +43,8 @@ int main(int argc, char *argv[])
 
     // Since we'll use Quick Controls 2, opt-in for High-DPI devices
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    Validators::registerValidators();
 
     bool fontsLoadedOk = true;
     // Registers the extra embedded fonts

@@ -14,6 +14,8 @@ import QtQuick.Controls.Material 2.4
 import QtQuick.Controls.Universal 2.4
 import QtQuick.Controls.Styles 1.4
 
+import App.Validators 1.0
+
 ApplicationWindow {
     Material.theme: Material.Dark
     //Universal.theme: Universal.Dark
@@ -124,7 +126,11 @@ ApplicationWindow {
                             Layout.fillWidth: true
                             Component.onCompleted: {console.log("dateField whxy: ", width, height, x, y);}
                             placeholderText: qsTr("05/08/2018")
-
+                            onTextChanged: {
+                                if(DateValidator.isDateValid(text)){
+                                    console.log("text is: '" + text + "'");
+                                }
+                            }
                         }
 
                         Label {
