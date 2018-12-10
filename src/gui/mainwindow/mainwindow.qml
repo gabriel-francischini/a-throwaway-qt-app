@@ -143,8 +143,12 @@ ApplicationWindow {
                             placeholderText: DateValidator.suitableDateHint()
 
                             onTextChanged: {
-                                if(DateValidator.isDateValid(text)){
-                                    console.log("text is: '" + text + "'");
+                                if(!DateValidator.isDateValid(text)){
+                                    var new_text = DateValidator.correctedDate(text);
+                                    console.log(new_text);
+                                    if(new_text !== text){
+                                        text = new_text;
+                                    }
                                 }
                             }
                         }
