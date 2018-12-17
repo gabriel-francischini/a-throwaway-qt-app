@@ -118,10 +118,10 @@ endif()
 # ===========================
 set(QtModulesRootDir "${qt_home}/${qt_arch}/lib/cmake")
 list(APPEND CMAKE_FRAMEWORK_PATH ${QtModulesRootDir})
-message(STATUS "Toolchain:    ${toolchain}")
-message(STATUS "Qt Home:      ${qt_home}/${qt_arch}")
-message(STATUS "QtModulesDir: ${QtModulesRootDir}")
-message(STATUS "Build type:   ${CMAKE_BUILD_TYPE}")
+message(STATUS "Toolchain:             ${toolchain}")
+message(STATUS "Qt Home:               ${qt_home}/${qt_arch}")
+message(STATUS "QtModulesDir:          ${QtModulesRootDir}")
+message(STATUS "Build type (before):   ${CMAKE_BUILD_TYPE}")
 
 
 
