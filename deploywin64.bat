@@ -74,8 +74,8 @@ xcopy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x64\Microso
 :: On Windows 7, this may be necessary
 :: see https://stackoverflow.com/questions/31811597/visual-c-2015-redistributable-dlls-for-app-local-deployment
 :: see https://blogs.msdn.microsoft.com/vcblog/2015/03/03/introducing-the-universal-crt/
-xcopy "C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x86" ^
-      deploy32\app /E
+xcopy "C:\Program Files (x86)\Windows Kits\10\Redist\ucrt\DLLs\x64" ^
+      deploy64\app /E
 
 
 :: For some reason, this CRT file needs to be deployed,
