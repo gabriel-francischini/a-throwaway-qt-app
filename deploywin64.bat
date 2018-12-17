@@ -67,12 +67,28 @@ echo     Copying QML files subtree...
 mkdir deploy64\app\gui
 xcopy src\gui deploy64\app\gui /E
 
-:: ZIPs app folder, '-ep' is for true zip format
-"C:\Program Files (x86)\WinRAR\WinRAR.exe" a -afzip -ep ^
-            deploy64\app.zip ^
-            deploy64\app
+echo     Copying MSVC runtime dependencies...
+xcopy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x64\Microsoft.VC140.CRT" ^
+      deploy64\app /E
 
-:: Deploys unit_tests.exe
+:: We should load CRT out of installed computer,
+:: because CRT varies with Windows' version
+del deploy64\app\concrt140.dll
+
+:: Copy remaining Qt's .dlls'
+copy /B "C:\Qt\5.12.0\msvc2017_64\plugins\platforms\qwindows.dll" ^
+     /B deploy64\app\qwindows.dll
+
+:: ZIPs app folder, '-ep' is for true zip format
+cd deploy64
+"C:\Program Files (x86)\WinRAR\WinRAR.exe" a -afzip ^
+            "app.zip" ^
+            "app"
+cd ..
+
+:: Deploys unit_tests.exe for test
+:: in the development machine.
+:: DO NOT DEPLOY THIS FOLDER TREE.
 echo Deploying unit_tests.exe target...
 echo     Creating deploy folder...
 mkdir deploy64\unit_tests
