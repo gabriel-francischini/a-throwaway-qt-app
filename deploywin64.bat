@@ -43,12 +43,12 @@ cmake -H. -Bbuild ^
       -Dtoolchain="desktop" ^
       -Dqt_home="%QT_HOME%" ^
       -Dqt_arch="%QT_ARCH%" ^
-      -DCMAKE_BUILD_TYPE="Debug"
+      -DCMAKE_BUILD_TYPE="Release"
 @echo off
 
 :: With MSVC, build type is defined at build time
 echo Building project...
-cmake --build build --config Debug
+cmake --build build --config Release
 
 :: Deploys app.exe
 echo Deploying app.exe target...
@@ -56,12 +56,12 @@ echo     Creating deploy folder...
 mkdir deploy64\app
 
 echo     Copying target executable...
-copy /B build\Debug\app.exe /B deploy64\app\app.exe
+copy /B build\Release\app.exe /B deploy64\app\app.exe
 
 echo     Running windeployqt.exe over copied file...
 "%QT_HOME%\%QT_ARCH%\bin\windeployqt.exe" --qmldir src\ ^
                                           --verbose 0^
-                                          --debug^
+                                          --release^
                                           deploy64\app\app.exe
 echo     Copying QML files subtree...
 mkdir deploy64\app\gui
@@ -78,12 +78,12 @@ echo     Creating deploy folder...
 mkdir deploy64\unit_tests
 
 echo     Copying target executable...
-copy /B build\Debug\unit_tests.exe /B deploy64\unit_tests\unit_tests.exe
+copy /B build\Release\unit_tests.exe /B deploy64\unit_tests\unit_tests.exe
 
 echo     Running windeployqt.exe over copied file...
 "%QT_HOME%\%QT_ARCH%\bin\windeployqt.exe" --qmldir src\ ^
                                           --verbose 0^
-                                          --debug^
+                                          --release^
                                           deploy64\unit_tests\unit_tests.exe
 echo     Copying QML files subtree...
 mkdir deploy64\unit_tests\gui
